@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+	<html>
+		<head>
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+			<title></title>
+			<style type="text/css">
+				img {
+					border-radius: 5%;
+					position: fixed;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					box-shadow: 10px 10px 5px #ad7b86;
+				}
+				.bordure {
+					border: 2px solid #deca37;
+				
+				}
+				body {
+					background-color: #edcad1;
+					margin: 0px;
+					font-family: Arial, Helvetica, sans-serif;
+				}
+				#options {
+					background: #ad7b86;
+					color: #f1f1f1;
+					position: fixed;
+					bottom: 0;
+					width: 100%;
+					height: 50px;
+					display: table;
+				}
+				.menu button{
+					float: right;
+					margin-right: 50px;
+				}
+				.menu li{
+					display:inline;
+					color:black;
+					margin: 5px;
+				}
+			</style>
+		</head>
+		<body>
+		<div>
+		<p>
+			<img id="image" src="images/queen.jpg" width="329" height="499">
+		</p>
+		</div>
+		<div id="options">
+			<ul class="menu">
+				<li><input type="radio" id="petit" name="taille" value="petit" onclick="handleClick(this);">
+				<label for="petit">petit</label></li>
+				<li><input type="radio" id="moyen" name="taille" value="moyen" onclick="handleClick(this);">
+				<label for="moyen">moyen</label></li>
+				<li><input type="radio" id="grand" name="taille" value="grand" onclick="handleClick(this);">
+				<label for="grand">grand</label></li>
+				<li><button id="btn_bordure" type="button">Ajouter bordures</button>
+				</li>
+			</ul>
+		</div>
+		
+		
+		<script>
+			carte = document.getElementById('image');
+			btn_brd = document.getElementById('btn_bordure');
+			
+			var liens = ["cup.jpg", "seven.jpg", "sun.jpg", "queen.jpg"];
+			var back = 1;
+			var A_une_bordure = false;
+			var radioValue = "moyen";
+			
+			carte.addEventListener("click", function() {
+					carte.src = "images/"+liens[Math.floor(Math.random() * 4)];
+						if (back%2 === 0){
+							carte.style.boxShadow = "10px 10px 5px #ad7b86";
+						}else{
+							carte.style.boxShadow = "-10px 10px 5px #ad7b86";
+						}
+						back++;		
+					}, false);
+		
+			btn_brd.addEventListener("click", function() {
+					if (!A_une_bordure){
+						carte.classList.add("bordure");
+						A_une_bordure = true;
+						btn_brd.innerHTML = "Enlever bordure";
+					}else{
+						carte.classList.remove("bordure");
+						A_une_bordure = false;
+						btn_brd.innerHTML = "Ajouter bordure";
+					}
+				}, false);
+				
+			function handleClick(myRadio) {
+				radioValue = myRadio.value;
+				if (radioValue == "petit"){
+					carte.style.height = '332px';
+					carte.style.width = '219px';
+					console.log("petit");
+				} else if (radioValue == "moyen"){
+					carte.style.height = '499px';
+					carte.style.width = '329px';
+					console.log("moyen");
+				} else {
+					carte.style.height = '665px';
+					carte.style.width = '438px';
+					console.log("grand");
+				}
+			}
+		
+		</script>
+		
+		</body>
+	</html>
