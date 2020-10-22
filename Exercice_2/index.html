@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<title>3.2. Traitement d'un formulaire </title>	
+	</head>
+	
+	<body>
+		
+		<form id="facturation" name="facturation" action="" onsubmit="return validationFormulaire(event);">
+		  <label for="nom">Nom complet:</label>
+		  <input onclick="fondOrange('nom');" type="text" id="nom" name="nom" placeholder="ex: Sylvain"><br>
+		  <label for="code">Code postal:</label>
+		  <input onclick="fondOrange('code');" type="text" id="code" name="code" placeholder="ex: J0K 1X0"><br>
+		  <label for="courriel">Courriel</label>
+		  <input onclick="fondOrange('courriel');" type="email" id="courriel" name="courriel"><br>
+		  <label for="comfirmationcourriel">Confirmez courriel</label>
+		  <input onclick="fondOrange('confirmationcourriel');" type="email" id="confirmationcourriel" name="confirmationcourriel"><br>
+		  
+		  <hr>
+		  
+		  <label for="modele">Quelle marque voulez-vous?</label> <br>
+		  <select name="modele" id="modele">
+			<option value="dell">Dell</option>
+			<option value="emac">Emac</option>
+			<option value="ibm">IBM</option>
+			<option value="buz">Buz</option>
+		  </select>
+		  
+		  <p>Cochez les options que vous voulez ajouter</p>
+		  
+			<input onclick="messageEcran();" type="checkbox" id="ecran" name="ecran" value="ecran">
+			<label for="ecran"> Écran - 300$</label><br>
+			<input type="checkbox" id="garantie" name="garantie" value="garantie">
+			<label for="garantie"> Garantie 2 ans - 200$</label><br>
+			<input type="checkbox" id="imprimante" name="imprimante" value="imprimante">
+			<label for="imprimante"> Imprimante - 100$</label><br>
+			<input type="checkbox" id="souris" name="souris" value="souris">
+			<label for="souris"> Souris sans fil - 40$</label><br>
+		  
+		  <hr>
+		  
+		  <input type="submit" value="Commander"> 
+		  <span> ou <button id="recommencer" onclick="resetForm();">Recommencer</button></span> 
+		</form> 
+		
+			<br>
+
+			<h1>Facture</h1>
+			<p id="texteTemporaire">En attente de l'envoie du formulaire </p>
+		<div class="facture" style="display:none;">
+				<table>
+				<caption> Facture achat ordinateur portable</caption>
+					<tr> 
+						<th colspan="1" rowspan="3" id="table_intro"></th>
+					</tr>
+				
+					<tr> 
+						<th colspan="1">Machine</th>
+						<th colspan="1" id="table_machine"></th>
+						<th colspan="1" id="table_machine_prix">Orpheline</th>
+					</tr>
+					<tr> 
+						<td colspawn="3">Options</td>
+					</tr>	
+					<tr> 
+						<td id="table_option1_numero"></td>
+						<td id="table_option1_nom"></td>
+						<td id="table_option1_prix"></td>
+					</tr>
+					<tr> 
+						<td id="table_option2_numero"></td>
+						<td id="table_option2_nom"></td>
+						<td id="table_option2_prix"></td>
+					</tr>				
+					<tr> 
+						<td id="table_option3_numero"></td>
+						<td id="table_option3_nom"></td>
+						<td id="table_option3_prix"></td>
+					</tr>				
+					<tr> 
+						<td id="table_option4_numero"></td>
+						<td id="table_option4_nom"></td>
+						<td id="table_option4_prix"></td>
+					</tr>					
+					<tr> 
+						<td>Total</td>
+						<td id="table_total"></td>
+					</tr>			
+
+				</table>
+		</div>
+		
+	</body>
+	
+	<script>
+	
+		function messageEcran(){
+			if(document.getElementById("ecran").checked == true){
+				alert("Félicitation pour votre choix d'un écran");
+			} else {
+				alert("Je vous implore de remettre l'écran à votre facture");
+			}
+		}
+	
+		function fondOrange(objet){ 
+			document.getElementById(objet).style.backgroundColor = "orange";
+		}
+		
+		function validationFormulaire(event){
+			console.log(event);
+			event.preventDefault(); 
+		
+			//INFORMATION ET VÉRIFICATION
+			//information du client
+			var nom = document.getElementById("facturation").elements["nom"].value; 
+			var code = document.getElementById("facturation").elements["code"].value; 
+			var courriel = document.getElementById("facturation").elements["courriel"].value; 
+			var confirmationcourriel = document.getElementById("facturation").elements["confirmationcourriel"].value; 
+			
+			//information de la machine
+			var modele = document.getElementById('modele').value;
+			
+			//options
+			var cb_ecran = document.getElementById("ecran");
+			var cb_garantie = document.getElementById("garantie");
+			var cb_imprimante = document.getElementById("imprimante");
+			var cb_souris = document.getElementById("souris");
+			
+			//bloc de vérification des informations
+			if(nom == "" || code == "" || courriel == "" || confirmationcourriel == ""){
+				alert("Vous devez remplir tous les champs"); 
+				return false;
+			} else {
+				if(courriel != confirmationcourriel){
+					alert("Les deux courriels doivent contenir la même adresse");
+					return false; 
+				} 
+			}
+			
+			alert("Envoie effectué"); 
+			
+			//CALCUL DU PRIX
+			var prixTotal = 0;
+			
+			//prix du modele
+			switch(modele) {
+			  case "dell":
+				prixTotal = 799.99;
+				break;
+			  case "ibm":
+				prixTotal = 899.99;
+				break;
+			  case "emac":
+				prixTotal = 999.99;
+				break;
+			  case "buz":
+				prixTotal = 1099.99;
+				break;
+			}
+			
+			//prix des options
+			if (cb_ecran.checked == true){
+				prixTotal += 300;
+			} 
+			  
+			if (cb_garantie.checked == true){
+				prixTotal += 200;
+			} 
+			
+			if (cb_imprimante.checked == true){
+				prixTotal += 100;
+			} 
+			
+			if (cb_souris.checked == true){
+				prixTotal += 40;
+			} 
+			
+			//affichage de la facture
+			document.getElementById("texteTemporaire").innerHTML = "Voici votre facture: ";
+			//IMPLÉMENTER L'AFFICHAGE DANS LE TABLEAU
+		}
+		
+		function resetForm(){
+			document.getElementById("formulaire").reset(); 
+		}
+	
+	</script>
+
+</html>
