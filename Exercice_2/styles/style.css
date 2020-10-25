@@ -1,0 +1,22 @@
+@charset "utf-8";
+/*CSS Document */
+
+	body {
+		font-family: Arial, Helvetica, sans-serif;
+		}
+		
+	table{
+		border: 2px solid black;
+	}
+	table.plus{
+		border: 2px solid gold;
+		border-style: dotted;
+	}
+	th.plus, td.plus {
+		border-bottom: 1px solid #ddd;
+	}
+	table.moins{
+		border: 2px solid black;
+		border-style: dotted;
+	}
+	
