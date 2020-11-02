@@ -40,10 +40,10 @@
 					<label for="modele">Quelle marque voulez-vous ?</label>
 					<br />
 					<select name="modele" id="modele">
-					  <option value="dell 799.99">Dell - 799,99$</option>
-					  <option value="asus 899.99">Asus - 899,99$</option>
-					  <option value="ibm 999.99">IBM Thinkpad - 999,99$</option>
-					  <option value="macbook 1099.99">MacBook - 1099,99$</option>
+					  <option value="Dell 799.99">Dell - 799,99$</option>
+					  <option value="Asus 899.99">Asus - 899,99$</option>
+					  <option value="IBM 999.99">IBM Thinkpad - 999,99$</option>
+					  <option value="Macbook 1099.99">MacBook - 1099,99$</option>
 					</select>
 					<br />
 					Cochez les options que vous voulez ajouter :<br />
@@ -65,21 +65,6 @@
 			<h1>Facture</h1>
 			<p id="en_attente">En attente de l'envoi du formulaire</p>
 			<p>
-			
-				<!--
-				<table id="la_facture">
-					<th>Facture achat ordinateur portable</th>
-					<tr>
-						<td id="msg" colspan=3 > </td>
-					</tr>
-					<tr id="machine">
-						<td >Machine</td>
-					</tr>
-					<tr>
-						<td colspan=3 >Options</td>
-					</tr>
-				</table>
-				 -->
 				
 				<table id="la_facture" class="tableau-facture" style="undefined;table-layout: fixed; width: 500px">
 					<colgroup>
@@ -89,47 +74,23 @@
 					</colgroup>
 					<thead>
 					  <tr>
-						<th class="titre-message" colspan="3" id="msg"></th>
+						<th class="titre" colspan="3" id="msg"></th>
 					  </tr>
 					</thead>
 					<tbody>
 					  <tr>
 						<td class="titre">Machine</td>
-						<td></td>
-						<td></td>
+						<td id="tableau_machine_modele"></td>
+						<td id="tableau_machine_prix"></td>
 					  </tr>
 					  <tr>
 						<td class="titre" colspan="3">Options</td>
 					  </tr>
-					  <tr>
-						<td></td>
-						<td></td>
-						<td></td>
-					  </tr>
-					  <tr>
-						<td></td>
-						<td></td>
-						<td></td>
-					  </tr>
-					  <tr>
-						<td></td>
-						<td></td>
-						<td></td>
-					  </tr>
-					  <tr>
-						<td></td>
-						<td></td>
-						<td></td>
-					  </tr>
-					  <tr>
-						<td class="titre">Total</td>
-						<td colspan="2"></td>
-					  </tr>
 					</tbody>
 					</table>
-									
 			</p>
 			</div>
+			
 		<script src="scripts/jquery-3.5.1.min.js"></script>	
 		<script>
 		
@@ -189,7 +150,6 @@
 					var total = 0;
 					$("#en_attente").html("Voici votre facture.");
 					
-					
 					var tableau_facture = $('form').serializeArray();
 					
 					//afficher message
@@ -199,10 +159,10 @@
 					
 					//afficher machine et prix
 					var info_machine = tableau_facture[4].value.split(" ", 2);
-					
-					$('#machine').append("<td>"+info_machine[0]+"</td>");
-					$('#machine').append("<td>"+info_machine[1]+"</td>");
 					total += parseFloat(info_machine[1]);
+
+					document.getElementById("tableau_machine_modele").innerHTML = info_machine[0].toString();
+					document.getElementById("tableau_machine_prix").innerHTML = info_machine[1].toString(); 					
 					
 					//afficher options et prix
 					var nbr_options = 1;
@@ -214,17 +174,15 @@
 												+info_option[1]+'</td></tr>');
 												nbr_options++;
 												total += parseFloat(info_option[1]);
-						
 					}
 					
 					//afficher total et devoiler
-					//$("#la_facture tr:last").after('<tr><td>Total</td><td>'
-												//+total+'</td></tr>');
+					$("#la_facture tr:last").after('<tr><td class="titre">TOTAL</td><td colspan="2">'+total+'</td></tr>');
 					var element = document.getElementById("la_facture");
 					if (total  > 1000){
-						element.classList.add("plus");
+					 element.classList.add("plus"); 
 					}else{
-						element.classList.add("moins");
+					 element.classList.add("moins"); 
 					}
 					
 					$("#la_facture").show();

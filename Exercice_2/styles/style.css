@@ -40,7 +40,7 @@
 		 font-size: 20px;
 	 }
 	
-	.moins .titre, .titre-message {
+	.moins .titre {
 		background-color: var(--clr-dark);
 	}
 	
@@ -48,7 +48,7 @@
 		background-color: var(--clr-light); 
 	}
 	
-	.plus .titre, .titre-message {
+	.plus .titre {
 		background-color: var(--clr-dark_2);
 		font-style: italic; 
 		
