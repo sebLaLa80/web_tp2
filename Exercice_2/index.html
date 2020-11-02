@@ -65,6 +65,8 @@
 			<h1>Facture</h1>
 			<p id="en_attente">En attente de l'envoi du formulaire</p>
 			<p>
+			
+				<!--
 				<table id="la_facture">
 					<th>Facture achat ordinateur portable</th>
 					<tr>
@@ -77,6 +79,55 @@
 						<td colspan=3 >Options</td>
 					</tr>
 				</table>
+				 -->
+				
+				<table id="la_facture" class="tableau-facture" style="undefined;table-layout: fixed; width: 500px">
+					<colgroup>
+					<col style="width: 150x">
+					<col style="width: 175px">
+					<col style="width: 175px">
+					</colgroup>
+					<thead>
+					  <tr>
+						<th class="titre-message" colspan="3" id="msg"></th>
+					  </tr>
+					</thead>
+					<tbody>
+					  <tr>
+						<td class="titre">Machine</td>
+						<td></td>
+						<td></td>
+					  </tr>
+					  <tr>
+						<td class="titre" colspan="3">Options</td>
+					  </tr>
+					  <tr>
+						<td></td>
+						<td></td>
+						<td></td>
+					  </tr>
+					  <tr>
+						<td></td>
+						<td></td>
+						<td></td>
+					  </tr>
+					  <tr>
+						<td></td>
+						<td></td>
+						<td></td>
+					  </tr>
+					  <tr>
+						<td></td>
+						<td></td>
+						<td></td>
+					  </tr>
+					  <tr>
+						<td class="titre">Total</td>
+						<td colspan="2"></td>
+					  </tr>
+					</tbody>
+					</table>
+									
 			</p>
 			</div>
 		<script src="scripts/jquery-3.5.1.min.js"></script>	
@@ -167,12 +218,13 @@
 					}
 					
 					//afficher total et devoiler
-					$("#la_facture tr:last").after('<tr><td>Total</td><td>'
-												+total+'</td></tr>');
+					//$("#la_facture tr:last").after('<tr><td>Total</td><td>'
+												//+total+'</td></tr>');
+					var element = document.getElementById("la_facture");
 					if (total  > 1000){
-					 $("#la_facture").addClass("plus");
+						element.classList.add("plus");
 					}else{
-					 $("#la_facture").addClass("moins");
+						element.classList.add("moins");
 					}
 					
 					$("#la_facture").show();
